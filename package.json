@@ -27,21 +27,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "lint-staged": {
-    "*.js": [
-      "standard --fix"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "standard": {
-    "env": [
-      "jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
