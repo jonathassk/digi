@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
-import Form from './pages/form'
+import Form from './pages/formpage'
 
 class App extends Component {
+
   render () {
     return (
       <div className='App'>
