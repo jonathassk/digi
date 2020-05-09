@@ -1,10 +1,7 @@
 import React from 'react'
 import Estados from '../../utils/estados'
-import TextInput from '../../Components/textInput'
-import { withTypes, Form, Field } from 'react-final-form'
 import { useForm, useField } from 'react-final-form-hooks'
 import Values from '../../Interfaces/values'
-
 
 let errors : {
   nome: boolean,
@@ -17,26 +14,55 @@ let errors : {
 }
 
 const onSubmit = async (values: Values) => {
-  console.log(values)
+  let valResult: boolean = validate(values)
+  if(!valResult){
+
+  }
+  console.log(valResult)
 }
 
-const validate = async (values: Values) => {
-  console.log('values')
+function validate (values: Values) {
+  if(!values.nome || !values.rua || !values.numero || !values.bairro || !values.cidade){
+    return false
+  }
+  if(values.CEP){
+    if(values.CEP.toString().length !== 8){
+      return false
+    }
+  } else {
+    return false
+  }
   
+  return true
 }
 
 
 const FormPage = () => {
-  const { form, handleSubmit, values, pristine, submitting } = useForm({
-    onSubmit
-  })
+  const { form, handleSubmit, pristine, submitting } = useForm({ onSubmit })
   const nome: any = useField('nome', form)
+  const CEP: any = useField('CEP', form)
+  const rua: any = useField('rua', form)
+  const numero: any = useField('numero', form)
+  const bairro: any = useField('bairro', form)
+  const cidade: any = useField('cidade', form)
 
   return (
     <form onSubmit={handleSubmit}>
       <label>Nome</label>
       <input {...nome.input}/>
-      <button type='submit' disabled={pristine}>submit</button>
+      <label>CEP</label>
+      <input type='number' {...CEP.input}/>
+      <label>rua</label>
+      <input {...rua.input}/>
+      <label>numero</label>
+      <input {...numero.input}/>
+      <label>bairro</label>
+      <input {...bairro.input}/>
+      <label>cidade</label>
+      <input {...cidade.input}/>
+      <label>Estado</label>
+      <button type='submit' disabled={pristine || submitting}>enviar</button>
+      <button type='reset' onClick={form.reset} disabled={pristine || submitting}>apagar</button>
     </form>        
   )
 }
